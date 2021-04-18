@@ -7,6 +7,9 @@ import './Login.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Header from '../../common/header/Header';
+import PropTypes from 'prop-types';
+
 class Login extends Component {
     constructor() {
         super();
@@ -21,7 +24,9 @@ class Login extends Component {
 
     render() {
         return (
-            <Card className="login-card">
+            <div>
+                <Header isLogin={false}/>
+                <Card className="login-card">
                 <CardContent style={{ padding: 50 }}>
                     <InputLabel id="login-card-heading">Login</InputLabel><br />
                     <FormControl className="login-form-control">
@@ -38,6 +43,8 @@ class Login extends Component {
                     </Button>
                 </CardContent>
             </Card>
+            </div>
+            
         );
     }
 
@@ -64,6 +71,8 @@ class Login extends Component {
             console.log("Go ahead with login");
             if (this.state.username === 'ankit' && this.state.password === 'tripathi') {
                 this.setState({ "incorrect_credentials-helper-text-class": "DispNone" });
+                sessionStorage.setItem("isLogin", "true");
+                this.props.history.push('/home');
             }
             else {
                 this.setState({ "incorrect_credentials-helper-text-class": "DispRed" });
