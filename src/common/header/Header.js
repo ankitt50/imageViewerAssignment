@@ -24,7 +24,7 @@ class Header extends Component {
                         <div className="header-logo-avatar_search">
                             <div className="header-search_field-container">
                                 <SearchIcon />
-                                <TextField placeholder="Search..." InputProps={{ disableUnderline: true }} />
+                                <TextField placeholder="Search..." InputProps={{ disableUnderline: true }} onChange={this.filterMediaHandler}/>
                             </div>
                             <div onClick={this.logoClickHandler}>
                                 <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
@@ -37,7 +37,7 @@ class Header extends Component {
                             <p>My Account</p>
                             <hr />
                         </div>
-                        <p>Logout</p>
+                        <p onClick={this.logoutClickHandler}>Logout</p>
                     </div>
                 </div>
                 }
@@ -54,6 +54,15 @@ class Header extends Component {
             this.setState({ 'options-open': true });
         }
     }
+
+    logoutClickHandler = () => {
+        sessionStorage.removeItem("isLogin");
+        this.props.logoutHandler.logout();
+    }
+    filterMediaHandler = (e) => {
+        this.props.logoutHandler.filterMedia(e.target.value);
+    }
+
 }
 
 export default Header;

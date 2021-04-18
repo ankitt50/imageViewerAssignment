@@ -1,6 +1,9 @@
 import React , {Component} from 'react';
 import './Home.css';
 import Header from '../../common/header/Header';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
 
 class Home extends Component {
     
@@ -12,13 +15,35 @@ class Home extends Component {
                     "id": "",
                     "caption": "",
                     "media_url": "",
-                    "media_type": ""
+                    "media_type": "",
+                    "username":"",
+                    "timestamp":""
                 },
                 {
                     "id": "",
                     "caption": "",
                     "media_url": "",
-                    "media_type": ""
+                    "media_type": "",
+                    "username":"",
+                    "timestamp":""
+                },
+            ],
+            "profileDataArrayToShow": [
+                {
+                    "id": "",
+                    "caption": "",
+                    "media_url": "",
+                    "media_type": "",
+                    "username":"",
+                    "timestamp":""
+                },
+                {
+                    "id": "",
+                    "caption": "",
+                    "media_url": "",
+                    "media_type": "",
+                    "username":"",
+                    "timestamp":""
                 },
             ]
         }
@@ -33,12 +58,13 @@ class Home extends Component {
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 that.setState({
-                    profileDataArray: JSON.parse(this.responseText).data
+                    profileDataArray: JSON.parse(this.responseText).data,
+                    profileDataArrayToShow: JSON.parse(this.responseText).data
                 });
             }
         });
 
-        xhr.open("GET", "https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type&access_token=IGQVJWa0JwU0VuMHdlZAVp5NS1ZAVGE2Nms2a3NkTXFyUy1KYWg4TGYzNElkRG1MSUNEcHo4clVwNGhwTEE0d19xVERBbzh5dTgyd25FcUJrX2c3RWx6ZA013c2oxN00wQ25BbFhqRkJOd0J4eFZAMV082MgZDZD");
+        xhr.open("GET", "https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,username&access_token=IGQVJWa0JwU0VuMHdlZAVp5NS1ZAVGE2Nms2a3NkTXFyUy1KYWg4TGYzNElkRG1MSUNEcHo4clVwNGhwTEE0d19xVERBbzh5dTgyd25FcUJrX2c3RWx6ZA013c2oxN00wQ25BbFhqRkJOd0J4eFZAMV082MgZDZD");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
         }
@@ -50,11 +76,49 @@ class Home extends Component {
     render() {
         var isLogin = sessionStorage.getItem("isLogin");
         return <div>
-            <Header isLogin={true}/>
-            {isLogin==="true" && this.state.profileDataArray.map(profileData => (
-            <img src={profileData.media_url} alt={profileData.caption}/>
+            <Header isLogin={true} logoutHandler={this}/>
+            {isLogin==="true" && this.state.profileDataArrayToShow.map(profileData => (
+                <div>
+                <Card className="profile_data-card">
+                    <CardContent >
+                    <div className="logo_timestamp_username-container">
+                    <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
+                    <div className="timestamp_username-container">
+                        <p className="username-para">{profileData.username}</p>
+                        <p className="timestamp-para">{profileData.timestamp}</p>
+                    </div>
+                    </div>
+                    <div>
+                    <img className="profile_data-image" src={profileData.media_url} alt={profileData.caption}/>
+                    </div>
+                    <div>
+                        <p>{profileData.caption}</p>
+                    </div>
+                    </CardContent>
+                </Card>
+                </div>
             ))}
+            
+            
         </div>
+    }
+
+    logout() {
+        this.props.history.push('/');
+    }
+    filterMedia(searchData) {
+        var tempArray = [];
+        console.log(searchData);
+        this.state.profileDataArray.forEach(element => {
+            console.log(element);
+            if(element.caption.includes(searchData)){
+                console.log(element.caption);
+                tempArray.push(element);
+            }
+        });
+
+        this.setState({profileDataArrayToShow: tempArray});
+        
     }
 }
 

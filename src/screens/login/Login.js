@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Header from '../../common/header/Header';
-import PropTypes from 'prop-types';
 
 class Login extends Component {
     constructor() {
