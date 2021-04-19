@@ -1,5 +1,5 @@
 .profile_data-card {
-    margin: 10px auto 10px auto;
+    margin: 10px auto 10px 10px;
     width: 500px;
     border-style: solid;
     border-width: 2px;
@@ -31,4 +31,8 @@
     width: 400px;
     height: 400px;
     object-fit: contain;
+}
+.profile_data-card-container {
+    display: flex;
+    flex-direction: row;
 }

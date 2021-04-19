@@ -4,7 +4,7 @@ import Header from '../../common/header/Header';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-
+import Grid from '@material-ui/core/Grid';
 class Home extends Component {
     
     constructor() {
@@ -77,27 +77,7 @@ class Home extends Component {
         var isLogin = sessionStorage.getItem("isLogin");
         return <div>
             <Header isLogin={true} logoutHandler={this}/>
-            {isLogin==="true" && this.state.profileDataArrayToShow.map(profileData => (
-                <div>
-                <Card className="profile_data-card">
-                    <CardContent >
-                    <div className="logo_timestamp_username-container">
-                    <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
-                    <div className="timestamp_username-container">
-                        <p className="username-para">{profileData.username}</p>
-                        <p className="timestamp-para">{profileData.timestamp}</p>
-                    </div>
-                    </div>
-                    <div>
-                    <img className="profile_data-image" src={profileData.media_url} alt={profileData.caption}/>
-                    </div>
-                    <div>
-                        <p>{profileData.caption}</p>
-                    </div>
-                    </CardContent>
-                </Card>
-                </div>
-            ))}
+            {isLogin==="true" && this.returnProfileDataElements()}
             
             
         </div>
@@ -119,6 +99,35 @@ class Home extends Component {
 
         this.setState({profileDataArrayToShow: tempArray});
         
+    }
+
+    returnProfileDataElements = () => {
+        return (
+            <Grid container spacing={3}>
+            {this.state.profileDataArrayToShow.map(profileData => (
+                <Grid item xs={12} md={6}>
+            <div className="profile_data-card-container">
+            <Card className="profile_data-card">
+                <CardContent >
+                <div className="logo_timestamp_username-container">
+                <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
+                <div className="timestamp_username-container">
+                    <p className="username-para">{profileData.username}</p>
+                    <p className="timestamp-para">{profileData.timestamp}</p>
+                </div>
+                </div>
+                <div>
+                <img className="profile_data-image" src={profileData.media_url} alt={profileData.caption}/>
+                </div>
+                <div>
+                    <p>{profileData.caption}</p>
+                </div>
+                </CardContent>
+            </Card>
+            </div>
+            </Grid>
+        ))}
+        </Grid>);
     }
 }
 
