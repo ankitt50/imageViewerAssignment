@@ -36,3 +36,14 @@
     display: flex;
     flex-direction: row;
 }
+.profile_data-likes-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.likes-count-text{
+    margin-left: 20px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}

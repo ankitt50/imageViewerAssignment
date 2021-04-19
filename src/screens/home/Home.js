@@ -5,11 +5,17 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Commments from './Comments';
 class Home extends Component {
     
     constructor() {
         super();
         this.state = {
+            "currentComment": '',
             "profileDataArray": [
                 {
                     "id": "",
@@ -45,7 +51,15 @@ class Home extends Component {
                     "username":"",
                     "timestamp":""
                 },
-            ]
+            ],
+            "likesObject":{
+
+            },
+            "commentsArrayObject":{
+                "id":[
+                    '',''
+                ]
+            }
         }
     }
 
@@ -61,6 +75,14 @@ class Home extends Component {
                     profileDataArray: JSON.parse(this.responseText).data,
                     profileDataArrayToShow: JSON.parse(this.responseText).data
                 });
+                var tempLikesObject = that.state.likesObject;
+                var tempCommentsArrayObject = that.state.commentsArrayObject;
+                that.state.profileDataArray.forEach(element => {
+                    tempLikesObject[element.id] = 0;
+                    tempCommentsArrayObject[element.id] = [];
+                });
+
+                that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject});
             }
         });
 
@@ -122,12 +144,57 @@ class Home extends Component {
                 <div>
                     <p>{profileData.caption}</p>
                 </div>
+                <div className="profile_data-likes-container">
+                    <div onClick={this.incrementLikes.bind(this,profileData.id)}>
+                        {this.state.likesObject[profileData.id]>0 && <FavoriteIcon color="secondary"/>}
+                        {this.state.likesObject[profileData.id]<=0 && <FavoriteBorderIcon/>}
+                    </div>
+                    <div className="likes-count-text">
+                        <p>{''+this.state.likesObject[profileData.id]+' likes'}</p>
+                    </div>
+                    
+                </div>
+                {(this.state.commentsArrayObject[profileData.id] !== undefined) &&
+                <Commments commentsArray={this.state.commentsArrayObject[profileData.id]}/>}
+                <div>
+                    <div>
+                    <TextField type="text" onChange={this.commentChangeHandler} />
+                    </div>
+                    <div>
+                    <Button variant="contained" color="primary" onClick={this.addCommentBtnHandler.bind(this,profileData.id)}>
+                        Login
+                    </Button>
+                    </div>
+                </div>
                 </CardContent>
             </Card>
             </div>
             </Grid>
         ))}
         </Grid>);
+    }
+
+    incrementLikes = (id) => {
+        var currentLikes = this.state.likesObject[id];
+        var newLikesObject = this.state.likesObject;
+        newLikesObject[id] = currentLikes + 1;
+        this.setState({'likesObject' : newLikesObject});
+    }
+    commentChangeHandler = (e) => {
+        console.log(e.target.value);
+        this.setState({currentComment:e.target.value});
+    }
+    addCommentBtnHandler = (id) => {
+        console.log('btn clicked'+id);
+        var newComment = this.state.currentComment;
+        if (newComment !== '') {
+            var oldCommentArray = this.state.commentsArrayObject[id];
+            oldCommentArray.push(newComment);
+            var compeleteCommentsArray = this.state.commentsArrayObject;
+            compeleteCommentsArray[id] = oldCommentArray;
+            this.setState({commentsArrayObject:compeleteCommentsArray});
+            console.log(this.state.commentsArrayObject);
+        }
     }
 }
 
