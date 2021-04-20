@@ -47,3 +47,10 @@
     font-weight: bold;
     margin-bottom: 2px;
 }
+.add-comment-container{
+    display: flex;
+    flex-direction: row;
+}
+.add-comment-btn{
+    margin-left: 20px;
+}

@@ -30,13 +30,19 @@ class Header extends Component {
                                 <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
                             </div>
                         </div></div>}
+                        {this.props.isOnProfilePage && <div>
+                        <div className="header-logo-avatar_search">
+                            <div onClick={this.logoClickHandler}>
+                                <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
+                            </div>
+                        </div></div>}
                 </div>
                 {this.state['options-open'] && <div>
                     <div className="account-options-container">
-                        <div>
-                            <p>My Account</p>
+                    {this.props.isLogin && <div>
+                            <p onClick={this.profilePageNavigationHandler} >My Account</p>
                             <hr />
-                        </div>
+                        </div>}
                         <p onClick={this.logoutClickHandler}>Logout</p>
                     </div>
                 </div>
@@ -58,6 +64,10 @@ class Header extends Component {
     logoutClickHandler = () => {
         sessionStorage.removeItem("isLogin");
         this.props.logoutHandler.logout();
+    }
+
+    profilePageNavigationHandler = () => {
+        this.props.logoutHandler.goToProfile();
     }
     filterMediaHandler = (e) => {
         this.props.logoutHandler.filterMedia(e.target.value);

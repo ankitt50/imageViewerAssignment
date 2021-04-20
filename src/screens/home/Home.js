@@ -108,6 +108,9 @@ class Home extends Component {
     logout() {
         this.props.history.push('/');
     }
+    goToProfile() {
+        this.props.history.push('/profile');
+    }
     filterMedia(searchData) {
         var tempArray = [];
         console.log(searchData);
@@ -156,13 +159,13 @@ class Home extends Component {
                 </div>
                 {(this.state.commentsArrayObject[profileData.id] !== undefined) &&
                 <Commments commentsArray={this.state.commentsArrayObject[profileData.id]}/>}
-                <div>
+                <div className="add-comment-container">
                     <div>
                     <TextField type="text" onChange={this.commentChangeHandler} />
                     </div>
-                    <div>
+                    <div className="add-comment-btn">
                     <Button variant="contained" color="primary" onClick={this.addCommentBtnHandler.bind(this,profileData.id)}>
-                        Login
+                        Add
                     </Button>
                     </div>
                 </div>
@@ -193,7 +196,6 @@ class Home extends Component {
             var compeleteCommentsArray = this.state.commentsArrayObject;
             compeleteCommentsArray[id] = oldCommentArray;
             this.setState({commentsArrayObject:compeleteCommentsArray});
-            console.log(this.state.commentsArrayObject);
         }
     }
 }
