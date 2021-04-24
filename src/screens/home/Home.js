@@ -196,6 +196,7 @@ class Home extends Component {
             var compeleteCommentsArray = this.state.commentsArrayObject;
             compeleteCommentsArray[id] = oldCommentArray;
             this.setState({commentsArrayObject:compeleteCommentsArray});
+            this.setState({currentComment:''});
         }
     }
 }
