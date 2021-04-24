@@ -28,9 +28,9 @@ class ProfileDetails extends Component {
                     </div>
                     <div className="edit_icon_tag-div">
                         <div className="tag-div">
-                        UpGrad Education
+                        {this.props.fullName}
                         </div>
-                        <div>
+                        <div onClick={this.props.profileScreen.openModalHandler}>
                             <Avatar style={{backgroundColor:'#fb3640'}}>
                                 <EditIcon/>
                             </Avatar>
