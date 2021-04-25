@@ -74,11 +74,13 @@ class Home extends Component {
         let that = this;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                that.setState({
-                    profileDataArray: JSON.parse(this.responseText).data,
-                    profileDataArrayToShow: JSON.parse(this.responseText).data
-                });
-                var tempLikesObject = that.state.likesObject;
+                if(JSON.parse(this.responseText).data !== undefined) {
+                    that.setState({
+                        profileDataArray: JSON.parse(this.responseText).data,
+                        profileDataArrayToShow: JSON.parse(this.responseText).data
+                    });
+
+                    var tempLikesObject = that.state.likesObject;
                 var tempCommentsArrayObject = that.state.commentsArrayObject;
                 var tempTimeStampArrayObject = that.state.timeStampArrayObject;
                 that.state.profileDataArray.forEach(element => {
@@ -90,8 +92,8 @@ class Home extends Component {
                     editedTS = TSArray[0] + ' ' + TSArray2[0];
                     tempTimeStampArrayObject[element.id] = editedTS;
                 });
-
                 that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject, timeStampArrayObject:tempTimeStampArrayObject});
+                }
             }
         });
 

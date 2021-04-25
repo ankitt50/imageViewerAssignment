@@ -26,3 +26,9 @@
     justify-content: flex-start;
     align-items: center;
 }
+.dispNone {
+    display: none;
+}
+.dispRed {
+    display: block;
+}
