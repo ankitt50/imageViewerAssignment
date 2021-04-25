@@ -59,6 +59,9 @@ class Home extends Component {
                 "id":[
                     '',''
                 ]
+            },
+            'timeStampArrayObject': {
+
             }
         }
     }
@@ -77,12 +80,18 @@ class Home extends Component {
                 });
                 var tempLikesObject = that.state.likesObject;
                 var tempCommentsArrayObject = that.state.commentsArrayObject;
+                var tempTimeStampArrayObject = that.state.timeStampArrayObject;
                 that.state.profileDataArray.forEach(element => {
                     tempLikesObject[element.id] = 0;
                     tempCommentsArrayObject[element.id] = [];
+                    var editedTS = "";
+                    var TSArray = element.timestamp.split("T");
+                    var TSArray2 = TSArray[1].split("+");
+                    editedTS = TSArray[0] + ' ' + TSArray2[0];
+                    tempTimeStampArrayObject[element.id] = editedTS;
                 });
 
-                that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject});
+                that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject, timeStampArrayObject:tempTimeStampArrayObject});
             }
         });
 
@@ -111,6 +120,7 @@ class Home extends Component {
     goToProfile() {
         this.props.history.push('/profile');
     }
+
     filterMedia(searchData) {
         var tempArray = [];
         console.log(searchData);
@@ -128,7 +138,8 @@ class Home extends Component {
 
     returnProfileDataElements = () => {
         return (
-            <Grid container spacing={3}>
+            <div class="home-page-outermost-div">
+            <Grid container>
             {this.state.profileDataArrayToShow.map(profileData => (
                 <Grid item xs={12} md={6}>
             <div className="profile_data-card-container">
@@ -138,13 +149,14 @@ class Home extends Component {
                 <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
                 <div className="timestamp_username-container">
                     <p className="username-para">{profileData.username}</p>
-                    <p className="timestamp-para">{profileData.timestamp}</p>
+                    <p className="timestamp-para">{this.state.timeStampArrayObject[profileData.id]}</p>
                 </div>
                 </div>
-                <div>
+                <div className="image-outer-div">
                 <img className="profile_data-image" src={profileData.media_url} alt={profileData.caption}/>
+                <hr className="image-horizontal-rule"/>
                 </div>
-                <div>
+                <div className="caption-div">
                     <p>{profileData.caption}</p>
                 </div>
                 <div className="profile_data-likes-container">
@@ -157,11 +169,13 @@ class Home extends Component {
                     </div>
                     
                 </div>
+                <div className="comments-outer-div">
                 {(this.state.commentsArrayObject[profileData.id] !== undefined) &&
-                <Commments commentsArray={this.state.commentsArrayObject[profileData.id]}/>}
+                <Commments username={profileData.username} commentsArray={this.state.commentsArrayObject[profileData.id]}/>}
+                </div>
                 <div className="add-comment-container">
-                    <div>
-                    <TextField type="text" onChange={this.commentChangeHandler} />
+                    <div className="addComment-textfield-div">
+                    <TextField type="text" label="Add a comment" onChange={this.commentChangeHandler} />
                     </div>
                     <div className="add-comment-btn">
                     <Button variant="contained" color="primary" onClick={this.addCommentBtnHandler.bind(this,profileData.id)}>
@@ -174,7 +188,7 @@ class Home extends Component {
             </div>
             </Grid>
         ))}
-        </Grid>);
+        </Grid></div>);
     }
 
     incrementLikes = (id) => {

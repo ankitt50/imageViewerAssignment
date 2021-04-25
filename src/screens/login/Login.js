@@ -27,7 +27,7 @@ class Login extends Component {
                 <Header isLogin={false}/>
                 <Card className="login-card">
                 <CardContent style={{ padding: 50 }}>
-                    <InputLabel id="login-card-heading">Login</InputLabel><br />
+                    <InputLabel id="login-card-heading">LOGIN</InputLabel><br />
                     <FormControl className="login-form-control">
                         <TextField id="username-basic" label="Username *" onChange={this.usernameChangehandler} />
                         <FormHelperText className={this.state['username-helper-text-class']} style={{ color: '#fb3640' }} >required</FormHelperText>

@@ -2,39 +2,13 @@
     color: pink;
     background-color: pink;
 }
-.profile_details-main-div{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 50px auto 30px auto;
-    width: 700px;
-}
-.profile_pic-div{
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-}
-.user_profile_data_numbers-div{
-    display: flex;
-    flex-direction: column;  
-    justify-content: center;
-    align-items: flex-start; 
-}
-.edit_icon_tag-div{
-    display: flex;
-    flex-direction: row;
-}
-.tag-div{
-    padding-right: 10px;
-}
 .imagesClass{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     object-fit: contain;
 }
 .images-outermost-div{
-    width: 610px;
+    width: 730px;
     margin: 30px auto 0px auto;
 }
 .image-details-profile-page {

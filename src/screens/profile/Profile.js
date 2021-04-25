@@ -18,9 +18,11 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
+            'username':'ankitt50',
+            'mediaCount': 4,
             'imagesArray': [],
             'isModalOpen': false,
-            'currentFullName': 'UpGrad Education',
+            'currentFullName': 'Ankit Tripathi',
             'newFullName': '',
             'isImageDetailModalOpen': false,
             'currentImageUrl': '',
@@ -36,7 +38,7 @@ class Profile extends Component {
                     '',''
                 ]
             },
-            'currentComment':''
+            'currentComment':'',
         }
     }
 
@@ -60,6 +62,7 @@ class Profile extends Component {
                 });
 
                 that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject});
+                that.getInstagramUserDetails();
             });
 
             xhr.open("GET", "https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,username&access_token=IGQVJWa0JwU0VuMHdlZAVp5NS1ZAVGE2Nms2a3NkTXFyUy1KYWg4TGYzNElkRG1MSUNEcHo4clVwNGhwTEE0d19xVERBbzh5dTgyd25FcUJrX2c3RWx6ZA013c2oxN00wQ25BbFhqRkJOd0J4eFZAMV082MgZDZD");
@@ -101,19 +104,35 @@ class Profile extends Component {
             transform: 'translate(-50%, -50%)',
         };
 
+        const btnStyle = {
+            marginTop: 30,
+            marginLeft: 30,
+            marginBottom: 30,
+        }
+
+        const editTextFieldStyle = {
+            marginLeft: 30,
+        }
+
         const body = (
             <div style={customStylesForFullName}>
-                <h2>Edit</h2>
+                <div style={editTextFieldStyle}>
+                <h3>Edit</h3>
+                </div>
+                <div style={editTextFieldStyle}>
                 <TextField type="text" label="Full Name" onChange={this.fullNameChangeHandler} />
+                </div>
+                <div style={btnStyle}>
                 <Button variant="contained" color="primary" onClick={this.updateFullNameHandler}>
                     UPDATE
                 </Button>
+                </div>
             </div>
         );
 
         return <div>
             <Header isOnProfilePage={true} logoutHandler={this} />
-            <ProfileDetails fullName={this.state.currentFullName} profileScreen={this} />
+            <ProfileDetails fullName={this.state.currentFullName} profileScreen={this}/>
             <div className="images-outermost-div">
                 <Grid container spacing={5}>
                     {this.state.imagesArray.map(element => (
@@ -146,7 +165,7 @@ class Profile extends Component {
                 <Avatar alt="upgrad logo" src="https://humancapitalonline.com/uploads/1584961135.jpg" />
                 </div>
                 <div className="image-details-right-div">
-                    <p>ankitt50</p>
+                    <p>{this.state.username}</p>
                 </div>
                 </div>
                 <div>
@@ -163,7 +182,7 @@ class Profile extends Component {
                     
                 </div>
                 {(this.state.commentsArrayObject[this.state.currentImageId] !== undefined) &&
-                <Commments commentsArray={this.state.commentsArrayObject[this.state.currentImageId]}/>}
+                <Commments commentsArray={this.state.commentsArrayObject[this.state.currentImageId]} username="ankitt50"/>}
                 <div className="user-profile_image_name-div" >
                     <div>
                     <TextField type="text" onChange={this.commentChangeHandler}/>
@@ -236,6 +255,23 @@ class Profile extends Component {
 
     commentChangeHandler = (e) => {
         this.setState({currentComment: e.target.value});
+    }
+
+    getInstagramUserDetails() {
+        let data = null;
+            let xhr = new XMLHttpRequest();
+            let that = this;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    var userData = JSON.parse(this.responseText).data;
+                    if (userData !== undefined) {
+                        this.setState({'username':userData.username, 'mediaCount':userData.media_count});
+                    }
+                }
+            });
+
+            xhr.open("GET", "https://graph.instagram.com/17841420725170665?fields=id,username,media_count&access_token=IGQVJXY1BMWjV3X3ZAQcXdjUjVFMEFDMXhZAY0JoZAVdreUsxc1JpNjJwRlBMVTFGSE5ZAdnBWWnltcWF1dWlVLUFwRWljM2w5ZAHVJSUI3THEtM1BmN0xDMTVSdXYzNkFnUHN0MmVycnNhU2RFRElfMHc3c2dqd0laT25WbjFN");
+            xhr.send(data);
     }
 }
 
