@@ -67,7 +67,6 @@ class Profile extends Component {
                 });
 
                 that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject});
-                that.getInstagramUserDetails();
             });
 
             xhr.open("GET", "https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,username&access_token=IGQVJWa0JwU0VuMHdlZAVp5NS1ZAVGE2Nms2a3NkTXFyUy1KYWg4TGYzNElkRG1MSUNEcHo4clVwNGhwTEE0d19xVERBbzh5dTgyd25FcUJrX2c3RWx6ZA013c2oxN00wQ25BbFhqRkJOd0J4eFZAMV082MgZDZD");
@@ -144,7 +143,7 @@ class Profile extends Component {
             <div className="images-outermost-div">
                 <Grid container spacing={5}>
                     {this.state.imagesArray.map(element => (
-                        <Grid item xs={12} md={4}>
+                        <Grid key={"grid"+element.id} item xs={12} md={4}>
                             <img className="imagesClass" src={element.media_url} alt="instagram-images" onClick={this.openImageDetailModalHandler.bind(this,element.media_url, element.caption, element.id)} />
                         </Grid>
                     ))}
@@ -215,6 +214,10 @@ class Profile extends Component {
         this.props.history.push('/');
     }
 
+    takeToHomePage() {
+        this.props.history.push('/home');
+    }
+
     openModalHandler = () => {
         console.log('open modal handler called');
         this.setState({ isModalOpen: true });
@@ -282,7 +285,7 @@ class Profile extends Component {
                 if (this.readyState === 4) {
                     var userData = JSON.parse(this.responseText).data;
                     if (userData !== undefined) {
-                        this.setState({'username':userData.username, 'mediaCount':userData.media_count});
+                        that.setState({'username':userData.username, 'mediaCount':userData.media_count});
                     }
                 }
             });

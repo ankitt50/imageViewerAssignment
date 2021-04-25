@@ -8,11 +8,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Header from '../../common/header/Header';
-
 class Login extends Component {
     constructor() {
         super();
         this.state = {
+            "correctUserName":"ankit",
+            'correctPassword':"tripathi",
             "username": "",
             "password": "",
             "username-helper-text-class": "DispNone",
@@ -28,18 +29,20 @@ class Login extends Component {
                 <Card className="login-card">
                 <CardContent style={{ padding: 50 }}>
                     <InputLabel id="login-card-heading">LOGIN</InputLabel><br />
+                    <form>
                     <FormControl className="login-form-control">
                         <TextField id="username-basic" label="Username *" onChange={this.usernameChangehandler} />
                         <FormHelperText className={this.state['username-helper-text-class']} style={{ color: '#fb3640' }} >required</FormHelperText>
                     </FormControl><br /><br />
                     <FormControl className="login-form-control">
-                        <TextField id="password-basic" type="password" label="Password *" onChange={this.passwordChangehandler} />
+                        <TextField id="password-basic" type="password" label="Password *" onChange={this.passwordChangehandler} autoComplete="on"/>
                         <FormHelperText className={this.state['password-helper-text-class']} style={{ color: '#fb3640' }}>required</FormHelperText>
                         <FormHelperText className={this.state['incorrect_credentials-helper-text-class']} style={{ color: '#fb3640' }}>Incorrect username and/or password</FormHelperText>
                     </FormControl><br /><br />
                     <Button variant="contained" color="primary" onClick={this.loginClickHandler}>
                         Login
                     </Button>
+                    </form>
                 </CardContent>
             </Card>
             </div>
@@ -68,7 +71,7 @@ class Login extends Component {
         }
         if (!fieldsEmpty) {
             console.log("Go ahead with login");
-            if (this.state.username === 'ankit' && this.state.password === 'tripathi') {
+            if (this.state.username === this.state.correctUserName && this.state.password === this.state.correctPassword) {
                 this.setState({ "incorrect_credentials-helper-text-class": "DispNone" });
                 sessionStorage.setItem("isLogin", "true");
                 this.props.history.push('/home');

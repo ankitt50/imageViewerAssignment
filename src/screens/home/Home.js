@@ -36,7 +36,7 @@ class Home extends Component {
             ],
             "profileDataArrayToShow": [
                 {
-                    "id": "",
+                    "id": "11",
                     "caption": "",
                     "media_url": "",
                     "media_type": "",
@@ -44,7 +44,7 @@ class Home extends Component {
                     "timestamp":""
                 },
                 {
-                    "id": "",
+                    "id": "12",
                     "caption": "",
                     "media_url": "",
                     "media_type": "",
@@ -89,7 +89,8 @@ class Home extends Component {
                     var editedTS = "";
                     var TSArray = element.timestamp.split("T");
                     var TSArray2 = TSArray[1].split("+");
-                    editedTS = TSArray[0] + ' ' + TSArray2[0];
+                    var TSArray3 = TSArray[0].split("-");
+                    editedTS = TSArray3[2] + "/" + TSArray3[1] + "/" + TSArray3[0] + ' ' + TSArray2[0];
                     tempTimeStampArrayObject[element.id] = editedTS;
                 });
                 that.setState({likesObject:tempLikesObject, commentsArrayObject:tempCommentsArrayObject, timeStampArrayObject:tempTimeStampArrayObject});
@@ -140,10 +141,10 @@ class Home extends Component {
 
     returnProfileDataElements = () => {
         return (
-            <div class="home-page-outermost-div">
+            <div className="home-page-outermost-div">
             <Grid container>
             {this.state.profileDataArrayToShow.map(profileData => (
-                <Grid item xs={12} md={6}>
+                <Grid key={'grid'+profileData.id} item xs={12} md={6}>
             <div className="profile_data-card-container">
             <Card className="profile_data-card">
                 <CardContent >

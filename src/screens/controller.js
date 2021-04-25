@@ -5,11 +5,6 @@ import Home from "./home/Home";
 import Profile from "./profile/Profile";
 
 class Controller extends Component {
-
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <Router>
