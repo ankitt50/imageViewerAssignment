@@ -10,6 +10,15 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Commments from '../comments/Comments';
+
+/*
+
+Home Component is used to render home screen.
+
+This screen shows all the user images, 
+with like and comment functionality.
+
+*/
 class Home extends Component {
     
     constructor() {
@@ -66,6 +75,9 @@ class Home extends Component {
         }
     }
 
+    // it calls the Instagram APIs to fetch all the user media,
+    // the response from the API is later used to render the 
+    // screen.
     componentWillMount() {
         var isLogin = sessionStorage.getItem("isLogin");
         if(isLogin === "true") {
@@ -103,6 +115,8 @@ class Home extends Component {
         xhr.send(data);
         }
         else {
+            // if the user isn't logged in then return the 
+            // user to the login page
             this.props.history.push('/');
         }
     }
@@ -112,18 +126,20 @@ class Home extends Component {
         return <div>
             <Header isLogin={true} logoutHandler={this}/>
             {isLogin==="true" && this.returnProfileDataElements()}
-            
-            
         </div>
     }
 
+    // when user selects logout option
     logout() {
         this.props.history.push('/');
     }
+
+    // when user selects my account option
     goToProfile() {
         this.props.history.push('/profile');
     }
 
+    // to filter the images based on the captions
     filterMedia(searchData) {
         var tempArray = [];
         console.log(searchData);
@@ -194,18 +210,21 @@ class Home extends Component {
         </Grid></div>);
     }
 
+
+    // to increment the likes count when user clicks on heart-icon
     incrementLikes = (id) => {
         var currentLikes = this.state.likesObject[id];
         var newLikesObject = this.state.likesObject;
         newLikesObject[id] = currentLikes + 1;
         this.setState({'likesObject' : newLikesObject});
     }
+    // record the changes in the commen text field
     commentChangeHandler = (e) => {
-        console.log(e.target.value);
         this.setState({currentComment:e.target.value});
     }
+    // add comment to the corresponding image, when user adds a 
+    // comment
     addCommentBtnHandler = (id) => {
-        console.log('btn clicked'+id);
         var newComment = this.state.currentComment;
         if (newComment !== '') {
             var oldCommentArray = this.state.commentsArrayObject[id];

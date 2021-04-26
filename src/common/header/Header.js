@@ -5,10 +5,25 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import profilePic from '../../assets/profileImage.jpg';
 
+/*
+
+Header component is a common component on all Screens.
+
+It shows Logo on the left most corner.
+
+It shows search bar and profile pic on right most 
+corner on home screen,
+
+and shows only profile pic on right most corner of the
+profile screen
+
+*/
 class Header extends Component {
 
     constructor() {
         super();
+        // variable to check, if the options menu
+        // is open or not
         this.state = {
             "options-open": false,
         }
@@ -33,7 +48,7 @@ class Header extends Component {
                         </div></div>}
                         {this.props.isOnProfilePage && <div>
                         <div className="header-logo-avatar_search">
-                            <div onClick={this.logoClickHandler} className="profile-image-on-header">
+                            <div onClick={this.picClickHandler} className="profile-image-on-header">
                                 <Avatar alt="upgrad logo" src={profilePic} />
                             </div>
                         </div></div>}
@@ -53,7 +68,9 @@ class Header extends Component {
 
     }
 
-    logoClickHandler = () => {
+    // method to open or close the options-menu on
+    // click of the profile pic
+    picClickHandler = () => {
         if (this.state['options-open']) {
             this.setState({ 'options-open': false });
         }
@@ -62,14 +79,20 @@ class Header extends Component {
         }
     }
 
+    // to logout when logout-option is clicked by the user
     logoutClickHandler = () => {
         sessionStorage.removeItem("isLogin");
         this.props.logoutHandler.logout();
     }
 
+    // to got to profile-screen when 'my account'-option 
+    // is clicked by the user
+
     profilePageNavigationHandler = () => {
         this.props.logoutHandler.goToProfile();
     }
+
+    // to filter media based on captions
     filterMediaHandler = (e) => {
         this.props.logoutHandler.filterMedia(e.target.value);
     }

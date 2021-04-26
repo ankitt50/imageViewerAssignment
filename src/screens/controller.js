@@ -4,6 +4,8 @@ import Login from "../screens/login/Login";
 import Home from "./home/Home";
 import Profile from "./profile/Profile";
 
+
+// to handle navigation/ routing
 class Controller extends Component {
   render() {
     return (

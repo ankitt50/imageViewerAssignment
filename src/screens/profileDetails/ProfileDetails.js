@@ -5,6 +5,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import './ProfileDetails.css';
 import profilePic from '../../assets/profileImage.jpg';
 
+/*
+This component is used in the profile screen to render user details
+like - media count, profile image, followers number etc.
+*/
 class ProfileDetails extends Component {
     render() {
         return (<div className="profile_details-main-div">
@@ -42,6 +46,8 @@ class ProfileDetails extends Component {
                 </div>
             </div>);
     }
+
+    // to handle userprofile image clicks by user.
     takeToHomePageHandler = () => {
         this.props.profileScreen.takeToHomePage();
     }

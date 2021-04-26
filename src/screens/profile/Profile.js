@@ -15,6 +15,12 @@ import Commments from '../comments/Comments';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 
+/*
+Profile Component renders the Profile screen.
+This screen shows user details - number of posts, followers,
+ following etc. info.
+
+*/
 class Profile extends Component {
 
     constructor() {
@@ -45,6 +51,9 @@ class Profile extends Component {
         }
     }
 
+    // makes the instagram API call to get user media
+    // and other user informations.
+
     componentWillMount() {
         var accessToken = sessionStorage.getItem('isLogin');
         if (accessToken) {
@@ -74,12 +83,16 @@ class Profile extends Component {
             xhr.send(data);
 
         } else {
+            // if the user isn't logged in, return them to 
+            // the login screen
             this.props.history.push('/');
         }
     }
 
 
     render() {
+
+        // styles for the image details modal
         const customStyles = {
             position: 'absolute',
             width: 700,
@@ -94,6 +107,8 @@ class Profile extends Component {
             transform: 'translate(-50%, -50%)',
         };
 
+         
+        // styles for the full name editing modal.
         const customStylesForFullName = {
             position: 'absolute',
             width: 250,
@@ -108,16 +123,20 @@ class Profile extends Component {
             transform: 'translate(-50%, -50%)',
         };
 
+
+        // style for the update full name button
         const btnStyle = {
             marginTop: 30,
             marginLeft: 30,
             marginBottom: 30,
         }
 
+        // style for the update full name text field
         const editTextFieldStyle = {
             marginLeft: 30,
         }
 
+        // body for the full name editing modal
         const body = (
             <div style={customStylesForFullName}>
                 <div style={editTextFieldStyle}>
@@ -210,38 +229,45 @@ class Profile extends Component {
         </div>
     }
 
+
+    // when user clicks on the logout-option,
+    // user is taken to the login page.
     logout() {
         this.props.history.push('/');
     }
 
+    // when user clicks on the profile-pic,
+    // user is taken to the home page.
     takeToHomePage() {
         this.props.history.push('/home');
     }
 
+    // open the edit full name modal
     openModalHandler = () => {
-        console.log('open modal handler called');
         this.setState({ isModalOpen: true });
     }
 
+    // open the image details modal
     openImageDetailModalHandler = (url, caption, id) => {
-        console.log('open modal handler called');
         this.setState({ isImageDetailModalOpen: true, currentImageUrl: url, currentImageCaption: caption, currentImageId: id });
     }
 
+    // close the edit full name modal
     handleClose = () => {
-        console.log('close modal handler called');
         this.setState({ isModalOpen: false });
     };
 
+    // close the image details modal
     handleImageModalClose = () => {
-        console.log('close modal handler called');
         this.setState({ isImageDetailModalOpen: false });
     };
 
+    // records the changes in the full name editing text field
     fullNameChangeHandler = (e) => {
-        console.log(e.target.value);
         this.setState({ newFullName: e.target.value });
     }
+
+    // when update full name button is clicked.
     updateFullNameHandler = () => {
         var newUpdatedName = this.state.newFullName;
         if(newUpdatedName === '') {
@@ -255,12 +281,16 @@ class Profile extends Component {
         this.setState({ isModalOpen: false });
         }
     }
+
+    // increases the liked count when the heart-icon is clicked
     incrementLikes = (id) => {
         var currentLikes = this.state.likesObject[id];
         var newLikesObject = this.state.likesObject;
         newLikesObject[id] = currentLikes + 1;
         this.setState({'likesObject' : newLikesObject});
     }
+
+    // when add comment button is clicked
     addCommentBtnHandler = (id) => {
         var newComment = this.state.currentComment;
         if (newComment !== '') {
@@ -273,10 +303,14 @@ class Profile extends Component {
         }
     }
 
+
+    // to record the changes in the comment text fields
     commentChangeHandler = (e) => {
         this.setState({currentComment: e.target.value});
     }
 
+
+    // Instagram APi is called to get user details.
     getInstagramUserDetails() {
         let data = null;
             let xhr = new XMLHttpRequest();

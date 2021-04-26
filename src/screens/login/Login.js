@@ -8,12 +8,27 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Header from '../../common/header/Header';
+
+/*
+Login Component is used to render Login screen.
+It takes username and password from user and validate them.
+
+correct username :- ankit
+correct password :- tripathi
+access-token :- IGQVJXY1BMWjV3X3ZAQcXdjUjVFMEF
+                DMXhZAY0JoZAVdreUsxc1JpNjJwRlBMV
+                TFGSE5ZAdnBWWnltcWF1dWlVLUFwRWljM
+                2w5ZAHVJSUI3THEtM1BmN0xDMTVSdXYzNk
+                FnUHN0MmVycnNhU2RFRElfMHc3c2dqd0laT25WbjFN
+
+*/
 class Login extends Component {
     constructor() {
         super();
         this.state = {
             "correctUserName":"ankit",
-            'correctPassword':"tripathi",
+            "correctPassword":"tripathi",
+            "access-token":"IGQVJXY1BMWjV3X3ZAQcXdjUjVFMEFDMXhZAY0JoZAVdreUsxc1JpNjJwRlBMVTFGSE5ZAdnBWWnltcWF1dWlVLUFwRWljM2w5ZAHVJSUI3THEtM1BmN0xDMTVSdXYzNkFnUHN0MmVycnNhU2RFRElfMHc3c2dqd0laT25WbjFN",
             "username": "",
             "password": "",
             "username-helper-text-class": "DispNone",
@@ -50,6 +65,10 @@ class Login extends Component {
         );
     }
 
+    // when user clicks on login button,
+    // this method checks whether any field is empty 
+    // or not.
+    // if the fields aren't empty, then it validates them
     loginClickHandler = () => {
         var fieldsEmpty = false;
         console.log("login clicked");
@@ -85,10 +104,13 @@ class Login extends Component {
         }
     }
 
+
+    // records the changes in the username text field
     usernameChangehandler = (e) => {
         console.log(e.target.value);
         this.setState({ "username": e.target.value });
     }
+    // records the changes in the password text field
     passwordChangehandler = (e) => {
         console.log(e.target.value);
         this.setState({ "password": e.target.value });

@@ -1,6 +1,13 @@
 import React,{Component} from 'react';
 import './Comments.css'
 
+/*
+Comments component is used in Home screen and Profile Screen
+ to render all the comments on the particular image.
+
+ It takes an array of comments as props , and returns 
+ them as paragraphs.
+*/
 class Comments extends Component {
     render() {
         return <div>
