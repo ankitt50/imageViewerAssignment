@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Commments from './Comments';
+import Commments from '../comments/Comments';
 class Home extends Component {
     
     constructor() {

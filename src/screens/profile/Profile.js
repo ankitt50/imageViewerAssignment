@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../profile/Profile.css';
-import ProfileDetails from './ProfileDetails';
+import ProfileDetails from '../profileDetails/ProfileDetails';
 import Header from '../../common/header/Header';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import Commments from '../home/Comments';
+import Commments from '../comments/Comments';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 
@@ -169,7 +169,7 @@ class Profile extends Component {
                         <div className="image-details-right-div">   
                 <div className="user-profile_image_name-div">
                     <div>
-                <Avatar alt="upgrad logo" src="https://scontent-del1-1.cdninstagram.com/v/t51.2885-15/73685220_157449838846949_2453623051468031234_n.jpg?_nc_cat=104&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=rHuKrfJs3b8AX_6Q6lX&_nc_ht=scontent-del1-1.cdninstagram.com&oh=7677afb24f583e49fa9019f3c648ca04&oe=60A8B01F" />
+                <Avatar alt="upgrad logo" src="../../assets/profileImage.jpg" />
                 </div>
                 <div className="image-details-right-div">
                     <p>{this.state.username}</p>

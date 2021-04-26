@@ -3,6 +3,7 @@ import './Header.css';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
+import profilePic from '../../assets/profileImage.jpg';
 
 class Header extends Component {
 
@@ -27,13 +28,13 @@ class Header extends Component {
                                 <TextField placeholder="Search..." InputProps={{ disableUnderline: true }} onChange={this.filterMediaHandler}/>
                             </div>
                             <div onClick={this.logoClickHandler} className="profile-image-on-header">
-                                <Avatar alt="upgrad logo" src="https://scontent-del1-1.cdninstagram.com/v/t51.2885-15/73685220_157449838846949_2453623051468031234_n.jpg?_nc_cat=104&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=rHuKrfJs3b8AX_6Q6lX&_nc_ht=scontent-del1-1.cdninstagram.com&oh=7677afb24f583e49fa9019f3c648ca04&oe=60A8B01F" />
+                                <Avatar alt="upgrad logo" src={profilePic} />
                             </div>
                         </div></div>}
                         {this.props.isOnProfilePage && <div>
                         <div className="header-logo-avatar_search">
                             <div onClick={this.logoClickHandler} className="profile-image-on-header">
-                                <Avatar alt="upgrad logo" src="https://scontent-del1-1.cdninstagram.com/v/t51.2885-15/73685220_157449838846949_2453623051468031234_n.jpg?_nc_cat=104&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=rHuKrfJs3b8AX_6Q6lX&_nc_ht=scontent-del1-1.cdninstagram.com&oh=7677afb24f583e49fa9019f3c648ca04&oe=60A8B01F" />
+                                <Avatar alt="upgrad logo" src={profilePic} />
                             </div>
                         </div></div>}
                 </div>
