@@ -14,7 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Commments from '../comments/Comments';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-
+import profileImage from '../../assets/profileImage.jpg';
 /*
 Profile Component renders the Profile screen.
 This screen shows user details - number of posts, followers,
@@ -188,7 +188,7 @@ class Profile extends Component {
                         <div className="image-details-right-div">   
                 <div className="user-profile_image_name-div">
                     <div>
-                <Avatar alt="upgrad logo" src="../../assets/profileImage.jpg" />
+                <Avatar alt="upgrad logo" src={profileImage} />
                 </div>
                 <div className="image-details-right-div">
                     <p>{this.state.username}</p>
