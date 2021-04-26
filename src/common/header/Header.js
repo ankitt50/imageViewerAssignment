@@ -42,7 +42,7 @@ class Header extends Component {
                                 <SearchIcon />
                                 <TextField placeholder="Search..." InputProps={{ disableUnderline: true }} onChange={this.filterMediaHandler}/>
                             </div>
-                            <div onClick={this.logoClickHandler} className="profile-image-on-header">
+                            <div onClick={this.picClickHandler} className="profile-image-on-header">
                                 <Avatar alt="upgrad logo" src={profilePic} />
                             </div>
                         </div></div>}
